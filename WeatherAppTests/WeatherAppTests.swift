@@ -2,8 +2,8 @@
 //  WeatherAppTests.swift
 //  WeatherAppTests
 //
-//  Created by Anam Shah on 22/03/19.
-//  Copyright © 2019 Anam Shah. All rights reserved.
+//  Created by Kinjal Solanki on 22/03/19.
+//  Copyright © 2019 Kinjal Solanki. All rights reserved.
 //
 
 import XCTest
