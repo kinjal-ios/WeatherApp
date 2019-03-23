@@ -44,6 +44,11 @@ class WeatherDataDisplayViewController: UIViewController, WeatherDataDisplayProt
     @IBOutlet weak var tblWeatherData: UITableView!
     @IBOutlet weak var tblHeader: UIView!
     
+    @IBOutlet weak var btnDone: UIButton!
+    @IBOutlet weak var pickerViewContainerVw: UIView!
+    @IBOutlet weak var pickerView: UIPickerView!
+    var pickerData: [String] = [String]()
+    @IBOutlet weak var pickerBottomConstant: NSLayoutConstraint!
     
     // MARK: Object lifecycle
     
@@ -94,8 +99,23 @@ class WeatherDataDisplayViewController: UIViewController, WeatherDataDisplayProt
     //@IBOutlet weak var nameTextField: UITextField!
    
     func setupUI() {
+       
+        pickerData = ["Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6"]
+
        self.tblHeader.setCornerRadius(radius: self.tblHeader.frame.height / 2.0)
        self.tblHeader.dropShadow(offset: CGSize(width: 1, height: 1), radius: 20, color: UIColor.black, opacity: 0.5)
+    }
+    
+    func openOrDismissPicker(isOpen : Bool){
+        UIView.animate(withDuration: 0.5) {
+            if isOpen {
+                self.pickerBottomConstant.constant = 0
+                
+            }else{
+                self.pickerBottomConstant.constant = 250
+            }
+            self.view.layoutIfNeeded()
+        }
     }
     
     func displayAlert(strTitle : String, strMessage : String) {
@@ -106,6 +126,18 @@ class WeatherDataDisplayViewController: UIViewController, WeatherDataDisplayProt
     func displayResponse(mdlResponse: [ResponseModel]) {
         print(mdlResponse)
     }
+    
+    //MARK: - UIButton Methods
+    
+    @IBAction func btnCalenderTapped(_ sender: UIButton) {
+        
+        self.openOrDismissPicker(isOpen: true)
+    }
+    
+    @IBAction func btnDoneTapped(_ sender: UIButton) {
+        
+        self.openOrDismissPicker(isOpen: false)
+    }
 }
 extension WeatherDataDisplayViewController : UITableViewDataSource{
     
@@ -115,10 +147,6 @@ extension WeatherDataDisplayViewController : UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "WeatherCell", for: indexPath)
-        
-        // set the text from the data model
-        cell.textLabel?.text = "anmals"
-        
         return cell
 
     }
@@ -133,4 +161,20 @@ extension WeatherDataDisplayViewController : UITableViewDelegate{
         return 80
     }
 }
-
+extension WeatherDataDisplayViewController : UIPickerViewDataSource{
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+       return pickerData.count
+    }
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+}
+extension WeatherDataDisplayViewController : UIPickerViewDelegate{
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+         return pickerData[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        print(pickerData[row])
+    }
+}

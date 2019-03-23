@@ -42,7 +42,7 @@ class WeatherDataDisplayInteractor: WeatherDataDisplayInteractorProtocol, Weathe
                     let decoder = JSONDecoder()
                     decoder.keyDecodingStrategy = .convertFromSnakeCase
                     let decodedValues = try decoder.decode([ResponseModel].self, from: json)
-                    self.arrDict = decodedValues as! [ResponseModel]
+                    self.arrDict = decodedValues 
                     print(decodedValues)
                 } catch {
                     print(error)
