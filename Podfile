@@ -10,3 +10,11 @@ target 'WeatherApp' do
   pod 'ReachabilitySwift'
 
 end
+
+target 'WeatherAppTests' do
+  pod 'Networking', '~> 4'
+end
+
+target 'WeatherAppUITests' do
+  pod 'SwiftMonkey'
+end
