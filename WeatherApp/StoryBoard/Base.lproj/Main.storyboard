@@ -77,7 +77,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="twK-Em-vLL" customClass="GradientView" customModule="WeatherApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="821.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="841.5"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cloud" translatesAutoresizingMaskIntoConstraints="NO" id="q7U-Hv-PfJ">
                                                 <rect key="frame" x="33" y="138" width="96" height="71"/>
@@ -87,7 +87,7 @@
                                                 </constraints>
                                             </imageView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TlL-5L-dbH">
-                                                <rect key="frame" x="320" y="37" width="30" height="30"/>
+                                                <rect key="frame" x="320" y="45" width="30" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="TlL-5L-dbH" secondAttribute="height" multiplier="1:1" id="4vk-kt-fGi"/>
                                                     <constraint firstAttribute="width" constant="30" id="BdU-K0-pNP"/>
@@ -97,10 +97,24 @@
                                                     <action selector="btnCalenderTapped:" destination="qcH-T6-ZJa" eventType="touchUpInside" id="0XI-HY-vjY"/>
                                                 </connections>
                                             </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MNb-ev-ydt">
+                                                <rect key="frame" x="25" y="45" width="30" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="30" id="82o-8R-bbQ"/>
+                                                    <constraint firstAttribute="width" secondItem="MNb-ev-ydt" secondAttribute="height" multiplier="1:1" id="nhg-ZY-Lz3"/>
+                                                </constraints>
+                                                <state key="normal" image="location"/>
+                                                <connections>
+                                                    <action selector="btnCalenderTapped:" destination="qcH-T6-ZJa" eventType="touchUpInside" id="WDY-EX-9Qw"/>
+                                                    <action selector="btnLocationTapped:" destination="qcH-T6-ZJa" eventType="touchUpInside" id="3aD-ub-ulW"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstItem="TlL-5L-dbH" firstAttribute="top" secondItem="twK-Em-vLL" secondAttribute="top" constant="37" id="IiZ-ff-lbe"/>
+                                            <constraint firstItem="MNb-ev-ydt" firstAttribute="leading" secondItem="twK-Em-vLL" secondAttribute="leading" constant="25" id="6FK-Eb-sHB"/>
+                                            <constraint firstItem="MNb-ev-ydt" firstAttribute="centerY" secondItem="TlL-5L-dbH" secondAttribute="centerY" id="AL7-hw-1Oa"/>
+                                            <constraint firstItem="TlL-5L-dbH" firstAttribute="top" secondItem="twK-Em-vLL" secondAttribute="top" constant="45" id="IiZ-ff-lbe"/>
                                             <constraint firstAttribute="trailing" secondItem="TlL-5L-dbH" secondAttribute="trailing" constant="25" id="iNu-k7-s4o"/>
                                             <constraint firstItem="q7U-Hv-PfJ" firstAttribute="leading" secondItem="twK-Em-vLL" secondAttribute="leading" constant="33" id="xe0-ur-X9s"/>
                                         </constraints>
@@ -318,6 +332,9 @@
                                                 </tableViewCellContentView>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <connections>
+                                                    <outlet property="lblMinMax" destination="Ieg-w9-Hdj" id="clp-qQ-nrT"/>
+                                                    <outlet property="lblMonth" destination="CXt-oM-qSt" id="pg3-IJ-6Lc"/>
+                                                    <outlet property="lblRainfall" destination="QHa-sC-3dp" id="SgD-Ey-Uhg"/>
                                                     <outlet property="vwBackground" destination="fSJ-AZ-O9k" id="1ir-Ff-sGr"/>
                                                 </connections>
                                             </tableViewCell>
@@ -329,7 +346,7 @@
                                     </tableView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="fiN-NK-PJ2" secondAttribute="bottom" id="1yx-w8-d9h"/>
+                                    <constraint firstAttribute="bottom" secondItem="fiN-NK-PJ2" secondAttribute="bottom" constant="20" id="1yx-w8-d9h"/>
                                     <constraint firstItem="fiN-NK-PJ2" firstAttribute="leading" secondItem="jJO-zB-2Ss" secondAttribute="leading" id="8SU-Z1-bbi"/>
                                     <constraint firstItem="wpn-Ws-izm" firstAttribute="centerX" secondItem="cbb-MD-g7b" secondAttribute="centerX" id="Dhp-VU-ht0"/>
                                     <constraint firstItem="Z1f-um-up0" firstAttribute="leading" secondItem="jJO-zB-2Ss" secondAttribute="leading" constant="10" id="E5t-4e-Bcf"/>
@@ -354,8 +371,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Wa-q6-Rym">
                                 <rect key="frame" x="0.0" y="717" width="375" height="200"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ad4-yw-bbR">
-                                        <rect key="frame" x="138" y="0.0" width="99.5" height="45"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select year" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ad4-yw-bbR">
+                                        <rect key="frame" x="148.5" y="0.0" width="78" height="45"/>
                                         <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="15"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -385,7 +402,7 @@
                                         </connections>
                                     </pickerView>
                                 </subviews>
-                                <color key="backgroundColor" red="0.09574466198682785" green="0.30945074558258057" blue="0.50162935256958008" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="c5B-Py-j85" firstAttribute="top" secondItem="ad4-yw-bbR" secondAttribute="bottom" id="2xp-cx-4LI"/>
                                     <constraint firstAttribute="trailing" secondItem="c5B-Py-j85" secondAttribute="trailing" id="492-zT-5Qo"/>
@@ -419,6 +436,10 @@
                     </view>
                     <connections>
                         <outlet property="btnDone" destination="VSQ-rB-cQz" id="pAJ-2h-OMI"/>
+                        <outlet property="lblCountry" destination="gzv-yL-0yj" id="JRv-AC-hBP"/>
+                        <outlet property="lblPickerTitle" destination="ad4-yw-bbR" id="3rP-iU-ZCu"/>
+                        <outlet property="lblTemprature" destination="wpn-Ws-izm" id="pxp-6D-hGG"/>
+                        <outlet property="lblYearSelected" destination="cbb-MD-g7b" id="FJ6-93-TUU"/>
                         <outlet property="pickerBottomConstant" destination="YBk-qA-6W0" id="iQP-Sp-vF1"/>
                         <outlet property="pickerView" destination="c5B-Py-j85" id="vQ2-If-f9J"/>
                         <outlet property="pickerViewContainerVw" destination="8Wa-q6-Rym" id="I8o-FD-6ic"/>
@@ -450,8 +471,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="calender" width="384" height="384"/>
+        <image name="calender" width="192" height="192"/>
         <image name="cloud" width="256" height="256"/>
+        <image name="location" width="384" height="384"/>
         <image name="rainy" width="256" height="256"/>
         <image name="temprature" width="256" height="256"/>
     </resources>

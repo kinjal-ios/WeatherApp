@@ -27,6 +27,11 @@
 		B0AA723222457C9A00896553 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0AA723122457C9A00896553 /* UIViewExtensions.swift */; };
 		B0AA723422461CA200896553 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0AA723322461CA200896553 /* GradientView.swift */; };
 		B0AA72372246287300896553 /* WeatherCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0AA72362246287300896553 /* WeatherCell.swift */; };
+		B0AA723D2246C86A00896553 /* weather.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = B0AA723C2246C83900896553 /* weather.sqlite */; };
+		B0AA723F2246DE3A00896553 /* WeatherDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0AA723E2246DE3A00896553 /* WeatherDataModel.swift */; };
+		B0AA72412246E2BE00896553 /* TempratureMinModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0AA72402246E2BE00896553 /* TempratureMinModel.swift */; };
+		B0AA72432246E2DF00896553 /* TempratureMaxModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0AA72422246E2DF00896553 /* TempratureMaxModel.swift */; };
+		B0AA72452246E2EB00896553 /* RainFallModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0AA72442246E2EB00896553 /* RainFallModel.swift */; };
 		EAE79E1D9F615131CCB76C92 /* Pods_WeatherApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E667D4F38F59A0CE2085138 /* Pods_WeatherApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -83,6 +88,11 @@
 		B0AA723122457C9A00896553 /* UIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
 		B0AA723322461CA200896553 /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		B0AA72362246287300896553 /* WeatherCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherCell.swift; sourceTree = "<group>"; };
+		B0AA723C2246C83900896553 /* weather.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = weather.sqlite; sourceTree = "<group>"; };
+		B0AA723E2246DE3A00896553 /* WeatherDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDataModel.swift; sourceTree = "<group>"; };
+		B0AA72402246E2BE00896553 /* TempratureMinModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempratureMinModel.swift; sourceTree = "<group>"; };
+		B0AA72422246E2DF00896553 /* TempratureMaxModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempratureMaxModel.swift; sourceTree = "<group>"; };
+		B0AA72442246E2EB00896553 /* RainFallModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RainFallModel.swift; sourceTree = "<group>"; };
 		E1C88E0610D59FCD0122A785 /* Pods-WeatherApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeatherApp.release.xcconfig"; path = "Target Support Files/Pods-WeatherApp/Pods-WeatherApp.release.xcconfig"; sourceTree = "<group>"; };
 		FDB1B26CCE9FDB5FAEE6A54C /* Pods-WeatherApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeatherApp.debug.xcconfig"; path = "Target Support Files/Pods-WeatherApp/Pods-WeatherApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -126,6 +136,10 @@
 			isa = PBXGroup;
 			children = (
 				B04B793C2244E9A4009285B8 /* ResponseModel.swift */,
+				B0AA723E2246DE3A00896553 /* WeatherDataModel.swift */,
+				B0AA72402246E2BE00896553 /* TempratureMinModel.swift */,
+				B0AA72422246E2DF00896553 /* TempratureMaxModel.swift */,
+				B0AA72442246E2EB00896553 /* RainFallModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -134,6 +148,7 @@
 			isa = PBXGroup;
 			children = (
 				B04B793F2244F446009285B8 /* DBManager.swift */,
+				B0AA723C2246C83900896553 /* weather.sqlite */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -406,6 +421,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0AA723D2246C86A00896553 /* weather.sqlite in Resources */,
 				B061AC112244C37500F2EF3A /* Main.storyboard in Resources */,
 				B061AC142244C3F000F2EF3A /* Assets.xcassets in Resources */,
 				B061AC102244C37500F2EF3A /* LaunchScreen.storyboard in Resources */,
@@ -485,13 +501,17 @@
 				B0AA72372246287300896553 /* WeatherCell.swift in Sources */,
 				B04B79392244C640009285B8 /* WeatherDataDisplayViewController.swift in Sources */,
 				B0AA723222457C9A00896553 /* UIViewExtensions.swift in Sources */,
+				B0AA72432246E2DF00896553 /* TempratureMaxModel.swift in Sources */,
 				B0AA723422461CA200896553 /* GradientView.swift in Sources */,
 				B04B79502244F4BE009285B8 /* FMDatabase.m in Sources */,
 				B061AC0A2244C31800F2EF3A /* AppDelegate.swift in Sources */,
 				B04B79512244F4BE009285B8 /* FMDatabasePool.m in Sources */,
+				B0AA72412246E2BE00896553 /* TempratureMinModel.swift in Sources */,
 				B04B79522244F4BE009285B8 /* FMResultSet.m in Sources */,
+				B0AA72452246E2EB00896553 /* RainFallModel.swift in Sources */,
 				B061AC1B2244C4CB00F2EF3A /* Constant.swift in Sources */,
 				B04B794F2244F4BE009285B8 /* FMDatabaseAdditions.m in Sources */,
+				B0AA723F2246DE3A00896553 /* WeatherDataModel.swift in Sources */,
 				B04B793D2244E9A4009285B8 /* ResponseModel.swift in Sources */,
 				B04B79382244C640009285B8 /* WeatherDataDisplayPresenter.swift in Sources */,
 				B04B79402244F446009285B8 /* DBManager.swift in Sources */,

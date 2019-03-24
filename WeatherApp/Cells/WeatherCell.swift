@@ -11,12 +11,18 @@ import UIKit
 class WeatherCell: UITableViewCell {
 
     @IBOutlet weak var vwBackground: UIView!
+    @IBOutlet weak var lblMonth: UILabel!
+    @IBOutlet weak var lblMinMax: UILabel!
+    @IBOutlet weak var lblRainfall: UILabel!
+    var mdlRainFall = RainFallModel()
+    var mdlTMin = TempratureMinModel()
+    var mdlTMax = TempratureMaxModel()
     
     override func awakeFromNib() {
         super.awakeFromNib()
         vwBackground.layer.cornerRadius = 10
         vwBackground.dropShadow(offset: CGSize.zero, radius: 10, color: UIColor.gray, opacity: 0.5)
-
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

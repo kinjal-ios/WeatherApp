@@ -17,7 +17,10 @@ protocol WeatherDataDisplayProtocol: class {
     func displayResponse(mdlResponse : [ResponseModel])
 }
 
-enum WeatherCategory : String {
+public enum WeatherCategory : String {
+    
+    static let allValues = [rainfall_England, minimumtemp_England, maximumtemp_England,rainfall_UK,minimumtemp_UK,maximumtemp_UK,rainfall_Scotland,minimumtemp_Scotland,maximumtemp_Scotland,rainfall_Wales,minimumtemp_Wales,maximumtemp_Wales]
+
     case rainfall_England = "/Rainfall-England.json"
     case minimumtemp_England = "/Tmin-England.json"
     case maximumtemp_England = "/Tmax-England.json"
@@ -35,9 +38,15 @@ enum WeatherCategory : String {
     case maximumtemp_Wales = "/Tmax-Wales.json"
 
 }
-
+public enum Countries : Int {
+    case UK = 1
+    case Scotland = 2
+    case Wales = 3
+    case England = 4
+}
 
 class WeatherDataDisplayViewController: UIViewController, WeatherDataDisplayProtocol {
+   
     //var interactor : WeatherDataDisplayInteractorProtocol?
     var presenter : WeatherDataDisplayPresentationProtocol?
     @IBOutlet weak var tblHeightConstant: NSLayoutConstraint!
@@ -47,9 +56,25 @@ class WeatherDataDisplayViewController: UIViewController, WeatherDataDisplayProt
     @IBOutlet weak var btnDone: UIButton!
     @IBOutlet weak var pickerViewContainerVw: UIView!
     @IBOutlet weak var pickerView: UIPickerView!
-    var pickerData: [String] = [String]()
     @IBOutlet weak var pickerBottomConstant: NSLayoutConstraint!
+    @IBOutlet weak var lblPickerTitle: UILabel!
+    @IBOutlet weak var lblTemprature: UILabel!
+    @IBOutlet weak var lblCountry: UILabel!
+    @IBOutlet weak var lblYearSelected: UILabel!
     
+    var isLocationSelected = Bool()
+    var pickerData: [String] = [String]()
+    var isSuccess = Bool()
+    var arrCountries = [String]()
+    var arrYears = [String]()
+    var mdlResponse = [ResponseModel]()
+    var arrWeatherCat = [WeatherCategory]()
+    var arrWeatherData = [WeatherDataModel]()
+    var arrRainFallmdl = [RainFallModel]()
+    var arrTMinMdl = [TempratureMinModel]()
+    var arrTMaxMdl = [TempratureMaxModel]()
+    var countryId = Int()
+    var yearSelected = Int()
     // MARK: Object lifecycle
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -86,9 +111,12 @@ class WeatherDataDisplayViewController: UIViewController, WeatherDataDisplayProt
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.presenter?.callWeatherApi(urlString: WeatherCategory.rainfall_England.rawValue)
-        setupUI()
-       
+//        if !UserDefaults.standard.bool(forKey: "isInserted"){
+//            self.presenter?.callWeatherApi(urlString: WeatherCategory.rainfall_England.rawValue)
+//        }
+        
+        setApicall()
+        print(arrCountries)
     }
     
     override func viewDidLayoutSubviews() {
@@ -96,28 +124,108 @@ class WeatherDataDisplayViewController: UIViewController, WeatherDataDisplayProt
     }
 
     
-    //@IBOutlet weak var nameTextField: UITextField!
+    //MARK: UI Setup methods
    
+    func setApicall(){
+        
+        self.arrWeatherCat = WeatherCategory.allValues
+        let queue = OperationQueue.main
+        
+        for i in 0..<arrWeatherCat.count{
+            print(i)
+            let operation1 = BlockOperation()
+            operation1.addExecutionBlock {
+                
+                if !UserDefaults.standard.bool(forKey: self.arrWeatherCat[i].rawValue){
+                    self.presenter?.callWeatherApi(urlString: self.arrWeatherCat[i].rawValue)
+                }
+                
+                if i == self.arrWeatherCat.count - 1{
+                   
+                    self.setupUI()
+                }
+            }
+            if queue.operationCount > 0{
+                operation1.addDependency(queue.operations.last!)
+            }
+            queue.addOperation(operation1)
+        }
+    }
+    
     func setupUI() {
-       
-        pickerData = ["Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6"]
+        
+        self.filterYearsDetails()
+        self.countryId = 1
+        self.yearSelected = Int(self.arrYears[0])!
+        self.tblHeader.setCornerRadius(radius: self.tblHeader.frame.height / 2.0)
+        self.tblHeader.dropShadow(offset: CGSize(width: 1, height: 1), radius: 20, color: UIColor.black, opacity: 0.5)
+        (isSuccess,arrRainFallmdl,arrTMinMdl,arrTMaxMdl) = DBManager.shared.getWeatherData(countryId: countryId, year: self.yearSelected)
+        self.tblWeatherData.reloadData()
+        self.viewDidLayoutSubviews()
 
-       self.tblHeader.setCornerRadius(radius: self.tblHeader.frame.height / 2.0)
-       self.tblHeader.dropShadow(offset: CGSize(width: 1, height: 1), radius: 20, color: UIColor.black, opacity: 0.5)
+        self.lblYearSelected.text = "Year-\(self.yearSelected)"
+        self.lblCountry.text = DBManager.shared.getCountryWithId(id: self.countryId)
+        self.getCountries()
+
+    }
+    
+    func reloadData(){
+        (isSuccess,arrRainFallmdl,arrTMinMdl,arrTMaxMdl) = DBManager.shared.getWeatherData(countryId: countryId, year: self.yearSelected)
+        self.tblWeatherData.reloadData()
+        self.viewDidLayoutSubviews()
+
+        self.lblYearSelected.text = "Year-\(self.yearSelected)"
+        self.lblCountry.text = DBManager.shared.getCountryWithId(id: self.countryId)
+
+    }
+    
+    func getCountries(){
+        (isSuccess,arrCountries) = DBManager.shared.getCountryDetail()
     }
     
     func openOrDismissPicker(isOpen : Bool){
+        
+        if isLocationSelected{
+           
+            self.lblPickerTitle.text = "select location"
+            pickerData = self.arrCountries
+            self.pickerView.reloadAllComponents()
+            
+        }else{
+            self.lblPickerTitle.text = "select year"
+            pickerData = self.arrYears
+            self.pickerView.reloadAllComponents()
+
+        }
+        
         UIView.animate(withDuration: 0.5) {
             if isOpen {
                 self.pickerBottomConstant.constant = 0
-                
             }else{
                 self.pickerBottomConstant.constant = 250
             }
             self.view.layoutIfNeeded()
         }
     }
-    
+    func filterYearsDetails(){
+        
+        var arrYearsDetail = [Int]()
+        (self.isSuccess,arrYearsDetail) = DBManager.shared.getYearsDetail()
+        arrYearsDetail = arrYearsDetail.removeDuplicates()
+        self.arrYears = arrYearsDetail.map { String($0) }.reversed()
+        
+       /* let reducedSubtitles = mdlResponse.reduce([String]()) { (result, current) in
+            if result.contains(where: { $0.year == current.year }) {
+                return result
+            }
+            print(result + [current])
+            return result + [current]
+        }*/
+        
+        pickerData = self.arrYears
+    }
+   
+    //MARK: - Delegate methods
     func displayAlert(strTitle : String, strMessage : String) {
         //nameTextField.text = viewModel.name
         print("Disp Done")
@@ -125,28 +233,45 @@ class WeatherDataDisplayViewController: UIViewController, WeatherDataDisplayProt
     
     func displayResponse(mdlResponse: [ResponseModel]) {
         print(mdlResponse)
+        self.mdlResponse = mdlResponse
+        self.setupUI()
     }
     
     //MARK: - UIButton Methods
+    @IBAction func btnLocationTapped(_ sender: UIButton) {
+       
+        self.isLocationSelected = true
+        self.openOrDismissPicker(isOpen: true)
+
+    }
     
     @IBAction func btnCalenderTapped(_ sender: UIButton) {
         
+        self.isLocationSelected = false
         self.openOrDismissPicker(isOpen: true)
     }
     
     @IBAction func btnDoneTapped(_ sender: UIButton) {
         
         self.openOrDismissPicker(isOpen: false)
+        self.reloadData()
+        
     }
 }
 extension WeatherDataDisplayViewController : UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 50
+        return arrTMaxMdl.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "WeatherCell", for: indexPath)
+        let cell : WeatherCell = tableView.dequeueReusableCell(withIdentifier: "WeatherCell", for: indexPath) as! WeatherCell
+        
+        cell.lblMonth.text = "\(self.arrRainFallmdl[indexPath.row].month!)"
+        cell.lblMinMax.text = "\(self.arrTMinMdl[indexPath.row].value!)/\(self.arrTMinMdl[indexPath.row].value!)"
+        cell.lblRainfall.text = "\(self.arrRainFallmdl[indexPath.row].value!)"
+
+        cell.selectionStyle = .none
         return cell
 
     }
@@ -158,7 +283,7 @@ extension WeatherDataDisplayViewController : UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80
+        return 50
     }
 }
 extension WeatherDataDisplayViewController : UIPickerViewDataSource{
@@ -175,6 +300,26 @@ extension WeatherDataDisplayViewController : UIPickerViewDelegate{
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if self.isLocationSelected{
+            self.countryId = DBManager.shared.getCountryId(name: pickerData[row])
+            print(self.countryId)
+        }else{
+            self.yearSelected = Int(pickerData[row])!
+            print(self.yearSelected)
+        }
         print(pickerData[row])
+    }
+}
+extension Array where Element:Equatable {
+    func removeDuplicates() -> [Element] {
+        var result = [Element]()
+        
+        for value in self {
+            if result.contains(value) == false {
+                result.append(value)
+            }
+        }
+        
+        return result
     }
 }

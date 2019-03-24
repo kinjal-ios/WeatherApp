@@ -24,12 +24,14 @@ protocol WeatherDataDisplayDataStore {
 class WeatherDataDisplayInteractor: WeatherDataDisplayInteractorProtocol, WeatherDataDisplayDataStore {
     var presenter: WeatherDataDisplayPresentationProtocol?
     var arrDict = [ResponseModel]()
+    var arrWeatherCat = [WeatherCategory]()
+    
     //var name: String = ""
     
-    
     // MARK: Get weather data
+    
     func getWeatherData(urlString : String) {
-        
+    
         //BaseUrl : "https://s3.eu-west-2.amazonaws.com/interview-question-data/metoffice"
         let networking = Networking(baseURL: "https://s3.eu-west-2.amazonaws.com/interview-question-data/metoffice")
         networking.get(urlString) { result in
@@ -42,7 +44,15 @@ class WeatherDataDisplayInteractor: WeatherDataDisplayInteractorProtocol, Weathe
                     let decoder = JSONDecoder()
                     decoder.keyDecodingStrategy = .convertFromSnakeCase
                     let decodedValues = try decoder.decode([ResponseModel].self, from: json)
-                    self.arrDict = decodedValues 
+                    self.arrDict = decodedValues
+                    let (countryId,type) = self.chkCountryCall(urlstr: urlString)
+                    if DBManager.shared.openDatabase(){
+                        for dict in self.arrDict{
+                            let insertQry = "insert into Weather_data (country_id, value,month,year,type) values (\(countryId),\(dict.value!),\(dict.month!),\(dict.year!),\(type))"
+                            let result = DBManager.shared.executeStatement(query: insertQry)                            
+                        }
+                    }
+                    UserDefaults.standard.set(true, forKey: urlString)
                     print(decodedValues)
                 } catch {
                     print(error)
@@ -54,6 +64,42 @@ class WeatherDataDisplayInteractor: WeatherDataDisplayInteractorProtocol, Weathe
                 break
                 // Handle error
             }
+        }
+    }
+    func chkCountryCall(urlstr : String) -> (Int,Int) {
+       
+        switch urlstr
+        {
+        case WeatherCategory.rainfall_England.rawValue:
+            return (4,1)
+        case WeatherCategory.minimumtemp_England.rawValue:
+            return (4,2)
+        case WeatherCategory.maximumtemp_England.rawValue:
+            return (4,3)
+            
+        case WeatherCategory.rainfall_Scotland.rawValue:
+            return (2,1)
+        case WeatherCategory.minimumtemp_Scotland.rawValue:
+            return (2,2)
+        case WeatherCategory.maximumtemp_Scotland.rawValue:
+            return (2,3)
+            
+        case WeatherCategory.rainfall_UK.rawValue:
+            return (1,1)
+        case WeatherCategory.minimumtemp_UK.rawValue:
+            return (1,2)
+        case WeatherCategory.maximumtemp_UK.rawValue:
+            return (1,3)
+            
+        case WeatherCategory.rainfall_Wales.rawValue:
+            return (3,1)
+        case WeatherCategory.minimumtemp_Wales.rawValue:
+            return (3,2)
+        case WeatherCategory.maximumtemp_Wales.rawValue:
+            return (3,3)
+
+        default:
+            return (0,0)
         }
         
     }
