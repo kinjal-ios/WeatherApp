@@ -289,6 +289,17 @@ class DBManager: NSObject {
         }
     }
     
+    func insertDataIntoDB(arrReponse : [ResponseModel],countryId : Int,type : Int){
+        
+        if DBManager.shared.openDatabase(){
+            for dict in arrReponse{
+                let insertQry = "insert into Weather_data (country_id, value,month,year,type) values (\(countryId),\(dict.value!),\(dict.month!),\(dict.year!),\(type))"
+                let _ = DBManager.shared.executeStatement(query: insertQry)
+            }
+        }
+        
+    }
+    
 /*    func getAddressDetail() -> (Bool,[AddressMDL]){
         
         var arrAddress : [AddressMDL] = []

@@ -12,6 +12,7 @@
 
 import UIKit
 import IHProgressHUD
+import Reachability
 
 let BOTTOM_CONST : CGFloat = 250
 let ROW_HEIGHT : CGFloat = 50
@@ -49,7 +50,8 @@ class WeatherDataDisplayViewController: UIViewController, WeatherDataDisplayProt
     private var arrTMaxMdl = [TempratureMaxModel]()
     private var countryId = Int()
     private var yearSelected = Int()
-    
+    let reachability = Reachability()!
+
     // MARK: Object lifecycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -83,17 +85,23 @@ class WeatherDataDisplayViewController: UIViewController, WeatherDataDisplayProt
     // MARK: View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        if !UserDefaults.standard.bool(forKey: "isDataInsered") {
-                setApicall()
-        } else {
-             self.setupUI()
-        }
+        
+        self.tblHeader.setCornerRadius(radius: self.tblHeader.frame.height / 2.0)
+        self.tblHeader.dropShadow(
+            offset: CGSize(width: 1, height: 1),
+            radius: 20,
+            color: UIColor.black,
+            opacity: 0.5
+        )
+        self.checkInternetConnection()
+       
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         self.tblHeightConstant.constant = CGFloat(CGFloat(self.arrRainFallmdl.count) * ROW_HEIGHT)
     }
+    
     
     //MARK: UI Setup methods
     func setApicall() {
@@ -127,17 +135,11 @@ class WeatherDataDisplayViewController: UIViewController, WeatherDataDisplayProt
         self.filterYearsDetails()
         self.countryId = 1
         self.yearSelected = Int(self.arrYears[0])!
-        self.tblHeader.setCornerRadius(radius: self.tblHeader.frame.height / 2.0)
-        self.tblHeader.dropShadow(
-            offset: CGSize(width: 1, height: 1),
-            radius: 20,
-            color: UIColor.black,
-            opacity: 0.5
-        )
         self.reloadData()
         self.getCountries()
     }
     
+    //UI reload when data changes
     func reloadData() {
         (isSuccess,arrRainFallmdl,arrTMinMdl,arrTMaxMdl) = DBManager.shared.getWeatherData(
             countryId: countryId,
@@ -151,10 +153,12 @@ class WeatherDataDisplayViewController: UIViewController, WeatherDataDisplayProt
 
     }
     
+    //Get countries from database
     func getCountries() {
         (isSuccess,arrCountries) = DBManager.shared.getCountryDetail()
     }
     
+    //Open or dismiss picker
     func openOrDismissPicker(isOpen: Bool) {
         
         if isLocationSelected {
@@ -176,6 +180,8 @@ class WeatherDataDisplayViewController: UIViewController, WeatherDataDisplayProt
             self.view.layoutIfNeeded()
         }
     }
+    
+    //Filtering years from response
     func filterYearsDetails() {
         
         var arrYearsDetail = [Int]()
@@ -192,6 +198,37 @@ class WeatherDataDisplayViewController: UIViewController, WeatherDataDisplayProt
             return result + [current]
         }*/
         
+    }
+    
+    //MARK:- Check for the internet connection
+    func checkInternetConnection(){
+        NotificationCenter.default.addObserver(self, selector: #selector(reachabilityChanged(note:)), name: .reachabilityChanged, object: reachability)
+        do{
+            try reachability.startNotifier()
+        }catch{
+            print("could not start reachability notifier")
+        }
+    }
+    
+    @objc func reachabilityChanged(note: Notification) {
+        
+        let reachability = note.object as! Reachability
+        
+        switch reachability.connection {
+        case .wifi, .cellular:
+            if !UserDefaults.standard.bool(forKey: "isDataInsered") {
+                self.setApicall()
+            } else {
+                self.setupUI()
+            }
+            print("Reachable via WiFi")
+            
+            print("Reachable via Cellular")
+        case .none:
+            self.setupUI()
+            self.showAlert(withTitle: "Network Error", withMessage: "No Internet Connection.")
+            print("Network not reachable")
+        }
     }
     
     //MARK: - Delegate methods
@@ -288,15 +325,3 @@ extension Array where Element:Equatable {
     
 }
 
-extension Array where Element: Operation {
-    
-    /// Execute block after all operations from the array.
-    func onFinish(block: @escaping () -> Void) {
-        let doneOperation = BlockOperation(block: block)
-        self.forEach {
-            [unowned doneOperation] in doneOperation.addDependency($0)
-        }
-        OperationQueue().addOperation(doneOperation)
-    }
-    
-}

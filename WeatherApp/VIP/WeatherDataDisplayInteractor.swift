@@ -40,20 +40,7 @@ class WeatherDataDisplayInteractor: WeatherDataDisplayInteractorProtocol {
                         
                         let decodedValues = try decoder.decode([ResponseModel].self, from: json)
                         self.arrData = decodedValues
-                        
-                        if urlString == WeatherCategory.minimumtemp_Wales.rawValue {
-                            IHProgressHUD.dismiss()
-                            UserDefaults.standard.set(true, forKey: "isDataInsered")
-                        }
-                        
-                        let (countryId,type) = getCountryDetails(countryInfo: urlString)
-                        if DBManager.shared.openDatabase(){
-                            for dict in self.arrData{
-                                let insertQry = "insert into Weather_data (country_id, value,month,year,type) values (\(countryId),\(dict.value!),\(dict.month!),\(dict.year!),\(type))"
-                                let _ = DBManager.shared.executeStatement(query: insertQry)
-                            }
-                        }
-                        UserDefaults.standard.set(true, forKey: urlString)
+                        self.insertIntoDB(urlString: urlString)
                         
                     } catch {
                         print(error)
@@ -66,5 +53,18 @@ class WeatherDataDisplayInteractor: WeatherDataDisplayInteractorProtocol {
                     // Handle error
                 }
         }
+    }
+    func insertIntoDB(urlString : String){
+        
+        if urlString == WeatherCategory.minimumtemp_Wales.rawValue {
+            IHProgressHUD.dismiss()
+            UserDefaults.standard.set(true, forKey: "isDataInsered")
+        }
+        
+        let (countryId,type) = getCountryDetails(countryInfo: urlString)
+        DBManager.shared.insertDataIntoDB(arrReponse: self.arrData, countryId: countryId, type: type)
+        UserDefaults.standard.set(true, forKey: urlString)
+        
+        
     }
 }
