@@ -17,8 +17,8 @@ class WeatherCell: UITableViewCell {
     var mdlMetrics = MetricDataModel() {
         didSet {
             lblMonth.text = getMonthName(monthNumber: mdlMetrics.month!)
-            lblRainfall.text = "\(mdlMetrics.rainfall!)"
-            lblMinMax.text = "\(mdlMetrics.tmin!)/\(mdlMetrics.tmax!)"
+            lblRainfall.text = "\(mdlMetrics.rainfall!) mm"
+            lblMinMax.text = "\(mdlMetrics.tmin!)° / \(mdlMetrics.tmax!)°"
         }
     }
     

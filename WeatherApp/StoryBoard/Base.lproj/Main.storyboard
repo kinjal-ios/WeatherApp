@@ -80,10 +80,10 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="775"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TlL-5L-dbH">
-                                                <rect key="frame" x="320" y="45" width="30" height="30"/>
+                                                <rect key="frame" x="325" y="35" width="25" height="25"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="TlL-5L-dbH" secondAttribute="height" multiplier="1:1" id="4vk-kt-fGi"/>
-                                                    <constraint firstAttribute="width" constant="30" id="BdU-K0-pNP"/>
+                                                    <constraint firstAttribute="width" constant="25" id="BdU-K0-pNP"/>
                                                 </constraints>
                                                 <state key="normal" image="calender"/>
                                                 <connections>
@@ -91,9 +91,9 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MNb-ev-ydt">
-                                                <rect key="frame" x="25" y="45" width="30" height="30"/>
+                                                <rect key="frame" x="25" y="35" width="25" height="25"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="30" id="82o-8R-bbQ"/>
+                                                    <constraint firstAttribute="width" constant="25" id="82o-8R-bbQ"/>
                                                     <constraint firstAttribute="width" secondItem="MNb-ev-ydt" secondAttribute="height" multiplier="1:1" id="nhg-ZY-Lz3"/>
                                                 </constraints>
                                                 <state key="normal" image="location"/>
@@ -114,7 +114,7 @@
                                         <constraints>
                                             <constraint firstItem="MNb-ev-ydt" firstAttribute="leading" secondItem="twK-Em-vLL" secondAttribute="leading" constant="25" id="6FK-Eb-sHB"/>
                                             <constraint firstItem="MNb-ev-ydt" firstAttribute="centerY" secondItem="TlL-5L-dbH" secondAttribute="centerY" id="AL7-hw-1Oa"/>
-                                            <constraint firstItem="TlL-5L-dbH" firstAttribute="top" secondItem="twK-Em-vLL" secondAttribute="top" constant="45" id="IiZ-ff-lbe"/>
+                                            <constraint firstItem="TlL-5L-dbH" firstAttribute="top" secondItem="twK-Em-vLL" secondAttribute="top" constant="35" id="IiZ-ff-lbe"/>
                                             <constraint firstAttribute="trailing" secondItem="TlL-5L-dbH" secondAttribute="trailing" constant="25" id="iNu-k7-s4o"/>
                                             <constraint firstItem="q7U-Hv-PfJ" firstAttribute="centerX" secondItem="twK-Em-vLL" secondAttribute="centerX" id="uuj-wr-Hee"/>
                                         </constraints>
@@ -144,14 +144,13 @@
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gzv-yL-0yj">
                                         <rect key="frame" x="8" y="40" width="359" height="0.0"/>
-                                        <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="40"/>
-                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="40"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cbb-MD-g7b">
                                         <rect key="frame" x="187.5" y="41" width="0.0" height="0.0"/>
-                                        <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="20"/>
-                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="20"/>
+                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z1f-um-up0">
@@ -164,9 +163,9 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="118.5" height="60"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Month" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kMk-e3-yJ8">
-                                                                <rect key="frame" x="35" y="18" width="48.5" height="24.5"/>
+                                                                <rect key="frame" x="35" y="18" width="50" height="20"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                                <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="17"/>
+                                                                <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="16"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
@@ -183,9 +182,9 @@
                                                                     <constraint firstAttribute="height" constant="30" id="wUj-IQ-IIc"/>
                                                                 </constraints>
                                                             </imageView>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Min/Max" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N93-nd-CMo">
-                                                                <rect key="frame" x="25" y="35" width="68" height="24.5"/>
-                                                                <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="17"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Min / Max" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N93-nd-CMo">
+                                                                <rect key="frame" x="19.5" y="35" width="79.5" height="19.5"/>
+                                                                <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="16"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
@@ -209,8 +208,8 @@
                                                                 </constraints>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rainy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8fm-sE-qFS">
-                                                                <rect key="frame" x="38.5" y="35" width="42" height="24.5"/>
-                                                                <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="17"/>
+                                                                <rect key="frame" x="37" y="35" width="44.5" height="19.5"/>
+                                                                <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="16"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
@@ -261,8 +260,8 @@
                                                                             <rect key="frame" x="0.0" y="0.0" width="118.5" height="39.5"/>
                                                                             <subviews>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CXt-oM-qSt">
-                                                                                    <rect key="frame" x="55" y="7.5" width="8.5" height="24.5"/>
-                                                                                    <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="17"/>
+                                                                                    <rect key="frame" x="56" y="11" width="6.5" height="17.5"/>
+                                                                                    <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="14"/>
                                                                                     <nil key="textColor"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
@@ -277,8 +276,8 @@
                                                                             <rect key="frame" x="118.5" y="0.0" width="118" height="39.5"/>
                                                                             <subviews>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="N/A" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ieg-w9-Hdj">
-                                                                                    <rect key="frame" x="44.5" y="7.5" width="29.5" height="24.5"/>
-                                                                                    <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="17"/>
+                                                                                    <rect key="frame" x="46" y="11" width="26.5" height="17.5"/>
+                                                                                    <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="14"/>
                                                                                     <nil key="textColor"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
@@ -293,8 +292,8 @@
                                                                             <rect key="frame" x="236.5" y="0.0" width="118.5" height="39.5"/>
                                                                             <subviews>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="N/A" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QHa-sC-3dp">
-                                                                                    <rect key="frame" x="44.5" y="7.5" width="29.5" height="24.5"/>
-                                                                                    <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="17"/>
+                                                                                    <rect key="frame" x="46" y="11" width="26.5" height="17.5"/>
+                                                                                    <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="14"/>
                                                                                     <nil key="textColor"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
