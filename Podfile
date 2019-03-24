@@ -8,7 +8,7 @@ target 'WeatherApp' do
   pod 'Networking', '~> 4'
   pod 'IHProgressHUD'
   pod 'ReachabilitySwift'
-
+  pod 'SwiftyGif'
 end
 
 target 'WeatherAppTests' do

@@ -12,6 +12,7 @@
 import UIKit
 import IHProgressHUD
 import Reachability
+import SwiftyGif
 
 let BOTTOM_CONST: CGFloat = 250
 let ROW_HEIGHT: CGFloat = 50
@@ -35,6 +36,7 @@ class WeatherDataDisplayViewController: UIViewController, WeatherDataDisplayProt
     @IBOutlet weak var lblTemprature: UILabel!
     @IBOutlet weak var lblCountry: UILabel!
     @IBOutlet weak var lblYearSelected: UILabel!
+    @IBOutlet weak var imgVwCenter: UIImageView!
     
     //variables
     private var isLocationSelected : Bool = false
@@ -86,10 +88,12 @@ class WeatherDataDisplayViewController: UIViewController, WeatherDataDisplayProt
         self.tblHeader.setCornerRadius(radius: self.tblHeader.frame.height / 2.0)
         self.tblHeader.dropShadow(
             offset: CGSize(width: 1, height: 1),
-            radius: 20,
+            radius: 25,
             color: UIColor.black,
-            opacity: 0.5
+            opacity: 0.3
         )
+        let gif = UIImage(gifName: "weather.gif")
+        self.imgVwCenter.setGifImage(gif)
         self.checkInternetConnection()
     }
     

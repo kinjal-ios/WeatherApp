@@ -25,7 +25,7 @@ class WeatherCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         vwBackground.layer.cornerRadius = 10
-        vwBackground.dropShadow(offset: CGSize.zero, radius: 10, color: UIColor.gray, opacity: 0.5)
+        vwBackground.dropShadow(offset: CGSize.zero, radius: 10, color: UIColor.gray, opacity: 0.3)
     }
 
 }
