@@ -57,11 +57,13 @@ public enum Countries : Int {
     case Wales = 3
     case England = 4
 }
+
 public enum WeatherMetric : Int {
     case Rainfall = 1
     case Tmin = 2
     case Tmax = 3
 }
+
 //GET COUNTRY ID, CATEGORY
 public func getCountryDetails(countryInfo : String) -> (Int,Int) {
     
@@ -95,5 +97,13 @@ public func getCountryDetails(countryInfo : String) -> (Int,Int) {
         default:
             return (0,0)
     }
+    
+}
+
+public func getMonthName(monthNumber: Int) -> String {
+    
+    let fmt = DateFormatter()    
+    let month = fmt.shortMonthSymbols[monthNumber - 1]
+    return month
     
 }

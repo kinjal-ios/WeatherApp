@@ -16,11 +16,9 @@ class WeatherCell: UITableViewCell {
     @IBOutlet weak var lblRainfall: UILabel!
     var mdlMetrics = MetricDataModel() {
         didSet {
-            
-            lblMonth.text = "\(mdlMetrics.month!)"
+            lblMonth.text = getMonthName(monthNumber: mdlMetrics.month!)
             lblRainfall.text = "\(mdlMetrics.rainfall!)"
             lblMinMax.text = "\(mdlMetrics.tmin!)/\(mdlMetrics.tmax!)"
-
         }
     }
     

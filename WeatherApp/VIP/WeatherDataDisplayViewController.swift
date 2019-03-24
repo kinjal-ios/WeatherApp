@@ -147,7 +147,11 @@ class WeatherDataDisplayViewController: UIViewController, WeatherDataDisplayProt
         self.pickerView.reloadAllComponents()
         
         UIView.animate(withDuration: 0.5) {
-            isOpen ? self.pickerBottomConstant.constant = 0 : self.pickerBottomConstant.constant = BOTTOM_CONST
+            if isOpen{
+                self.pickerBottomConstant.constant = 0.0
+            } else {
+                self.pickerBottomConstant.constant = BOTTOM_CONST
+            }
             self.view.layoutIfNeeded()
         }
     }
