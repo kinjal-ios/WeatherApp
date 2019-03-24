@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B037EA7A2247DBEA00E22808 /* MetricsDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B037EA792247DBEA00E22808 /* MetricsDataModel.swift */; };
 		B04B79382244C640009285B8 /* WeatherDataDisplayPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04B79352244C640009285B8 /* WeatherDataDisplayPresenter.swift */; };
 		B04B79392244C640009285B8 /* WeatherDataDisplayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04B79362244C640009285B8 /* WeatherDataDisplayViewController.swift */; };
 		B04B793A2244C640009285B8 /* WeatherDataDisplayInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04B79372244C640009285B8 /* WeatherDataDisplayInteractor.swift */; };
@@ -29,9 +30,6 @@
 		B0AA72372246287300896553 /* WeatherCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0AA72362246287300896553 /* WeatherCell.swift */; };
 		B0AA723D2246C86A00896553 /* weather.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = B0AA723C2246C83900896553 /* weather.sqlite */; };
 		B0AA723F2246DE3A00896553 /* WeatherDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0AA723E2246DE3A00896553 /* WeatherDataModel.swift */; };
-		B0AA72412246E2BE00896553 /* TempratureMinModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0AA72402246E2BE00896553 /* TempratureMinModel.swift */; };
-		B0AA72432246E2DF00896553 /* TempratureMaxModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0AA72422246E2DF00896553 /* TempratureMaxModel.swift */; };
-		B0AA72452246E2EB00896553 /* RainFallModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0AA72442246E2EB00896553 /* RainFallModel.swift */; };
 		EAE79E1D9F615131CCB76C92 /* Pods_WeatherApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E667D4F38F59A0CE2085138 /* Pods_WeatherApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -54,6 +52,7 @@
 
 /* Begin PBXFileReference section */
 		2E667D4F38F59A0CE2085138 /* Pods_WeatherApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WeatherApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B037EA792247DBEA00E22808 /* MetricsDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricsDataModel.swift; sourceTree = "<group>"; };
 		B04B79352244C640009285B8 /* WeatherDataDisplayPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDataDisplayPresenter.swift; sourceTree = "<group>"; };
 		B04B79362244C640009285B8 /* WeatherDataDisplayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDataDisplayViewController.swift; sourceTree = "<group>"; };
 		B04B79372244C640009285B8 /* WeatherDataDisplayInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDataDisplayInteractor.swift; sourceTree = "<group>"; };
@@ -90,9 +89,6 @@
 		B0AA72362246287300896553 /* WeatherCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherCell.swift; sourceTree = "<group>"; };
 		B0AA723C2246C83900896553 /* weather.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = weather.sqlite; sourceTree = "<group>"; };
 		B0AA723E2246DE3A00896553 /* WeatherDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDataModel.swift; sourceTree = "<group>"; };
-		B0AA72402246E2BE00896553 /* TempratureMinModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempratureMinModel.swift; sourceTree = "<group>"; };
-		B0AA72422246E2DF00896553 /* TempratureMaxModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempratureMaxModel.swift; sourceTree = "<group>"; };
-		B0AA72442246E2EB00896553 /* RainFallModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RainFallModel.swift; sourceTree = "<group>"; };
 		E1C88E0610D59FCD0122A785 /* Pods-WeatherApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeatherApp.release.xcconfig"; path = "Target Support Files/Pods-WeatherApp/Pods-WeatherApp.release.xcconfig"; sourceTree = "<group>"; };
 		FDB1B26CCE9FDB5FAEE6A54C /* Pods-WeatherApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeatherApp.debug.xcconfig"; path = "Target Support Files/Pods-WeatherApp/Pods-WeatherApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -137,9 +133,7 @@
 			children = (
 				B04B793C2244E9A4009285B8 /* ResponseModel.swift */,
 				B0AA723E2246DE3A00896553 /* WeatherDataModel.swift */,
-				B0AA72402246E2BE00896553 /* TempratureMinModel.swift */,
-				B0AA72422246E2DF00896553 /* TempratureMaxModel.swift */,
-				B0AA72442246E2EB00896553 /* RainFallModel.swift */,
+				B037EA792247DBEA00E22808 /* MetricsDataModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -505,14 +499,12 @@
 				B0AA72372246287300896553 /* WeatherCell.swift in Sources */,
 				B04B79392244C640009285B8 /* WeatherDataDisplayViewController.swift in Sources */,
 				B0AA723222457C9A00896553 /* UIViewExtensions.swift in Sources */,
-				B0AA72432246E2DF00896553 /* TempratureMaxModel.swift in Sources */,
 				B0AA723422461CA200896553 /* GradientView.swift in Sources */,
 				B04B79502244F4BE009285B8 /* FMDatabase.m in Sources */,
 				B061AC0A2244C31800F2EF3A /* AppDelegate.swift in Sources */,
 				B04B79512244F4BE009285B8 /* FMDatabasePool.m in Sources */,
-				B0AA72412246E2BE00896553 /* TempratureMinModel.swift in Sources */,
+				B037EA7A2247DBEA00E22808 /* MetricsDataModel.swift in Sources */,
 				B04B79522244F4BE009285B8 /* FMResultSet.m in Sources */,
-				B0AA72452246E2EB00896553 /* RainFallModel.swift in Sources */,
 				B061AC1B2244C4CB00F2EF3A /* Constant.swift in Sources */,
 				B04B794F2244F4BE009285B8 /* FMDatabaseAdditions.m in Sources */,
 				B0AA723F2246DE3A00896553 /* WeatherDataModel.swift in Sources */,

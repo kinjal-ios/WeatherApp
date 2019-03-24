@@ -16,23 +16,43 @@ import IHProgressHUD
 
 protocol WeatherDataDisplayInteractorProtocol {
     func getWeatherData(urlString : String)
+    func initiateApiCalls()
+
 }
 
 class WeatherDataDisplayInteractor: WeatherDataDisplayInteractorProtocol {
+   
     var presenter: WeatherDataDisplayPresentationProtocol?
     private var arrData = [ResponseModel]()
     private var arrWeatherCat = [WeatherCategory]()
+
+    //Initiate Api calls
+    func initiateApiCalls() {
+        self.arrWeatherCat = WeatherCategory.allValues
+        let queue = OperationQueue.main
         
+        for i in 0..<arrWeatherCat.count {
+            let operationWeather = BlockOperation()
+            operationWeather.addExecutionBlock {
+                if !UserDefaults.standard.bool(forKey: self.arrWeatherCat[i].rawValue) {
+                    self.presenter?.callWeatherApi(urlString: self.arrWeatherCat[i].rawValue)
+                }
+            }
+            if queue.operationCount > 0 {
+                operationWeather.addDependency(queue.operations.last!)
+            }
+            queue.addOperation(operationWeather)
+        }
+    }
+    
     // MARK: Get weather data
-    
     func getWeatherData(urlString: String) {
-    
         let networking = Networking(baseURL: BASEURL)
         networking.get(urlString) { result in
             switch result {
                 case .success(let response):
                     let json = response.arrayBody
-                    print(json)
+                    
                     do {
                         let json = try JSONSerialization.data(withJSONObject: json)
                         let decoder = JSONDecoder()
@@ -45,7 +65,7 @@ class WeatherDataDisplayInteractor: WeatherDataDisplayInteractorProtocol {
                     } catch {
                         print(error)
                     }
-                    print(self.arrData)
+                    
                     self.presenter?.getWeatherReponse(mdlResponse: self.arrData)
 
                 case .failure( _):
@@ -54,17 +74,16 @@ class WeatherDataDisplayInteractor: WeatherDataDisplayInteractorProtocol {
                 }
         }
     }
-    func insertIntoDB(urlString : String){
-        
+    
+    //Perform DB insertion
+    func insertIntoDB(urlString : String) {
         if urlString == WeatherCategory.minimumtemp_Wales.rawValue {
             IHProgressHUD.dismiss()
             UserDefaults.standard.set(true, forKey: "isDataInsered")
         }
-        
         let (countryId,type) = getCountryDetails(countryInfo: urlString)
         DBManager.shared.insertDataIntoDB(arrReponse: self.arrData, countryId: countryId, type: type)
         UserDefaults.standard.set(true, forKey: urlString)
-        
-        
     }
+    
 }

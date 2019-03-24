@@ -57,7 +57,11 @@ public enum Countries : Int {
     case Wales = 3
     case England = 4
 }
-
+public enum WeatherMetric : Int {
+    case Rainfall = 1
+    case Tmin = 2
+    case Tmax = 3
+}
 //GET COUNTRY ID, CATEGORY
 public func getCountryDetails(countryInfo : String) -> (Int,Int) {
     

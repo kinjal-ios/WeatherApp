@@ -14,36 +14,20 @@ class WeatherCell: UITableViewCell {
     @IBOutlet weak var lblMonth: UILabel!
     @IBOutlet weak var lblMinMax: UILabel!
     @IBOutlet weak var lblRainfall: UILabel!
-    var mdlRainFall = RainFallModel(){
-        didSet{
-            lblMonth.text = "\(mdlRainFall.month!)"
-            lblRainfall.text = "\(mdlRainFall.value!)"
-        }
-    }
-    var mdlTMin = TempratureMinModel(){
-        didSet{
-            lblMinMax.text = "\(mdlTMin.value!)"
-        }
-    }
+    var mdlMetrics = MetricDataModel() {
+        didSet {
+            
+            lblMonth.text = "\(mdlMetrics.month!)"
+            lblRainfall.text = "\(mdlMetrics.rainfall!)"
+            lblMinMax.text = "\(mdlMetrics.tmin!)/\(mdlMetrics.tmax!)"
 
-    var mdlTMax = TempratureMaxModel(){
-        didSet{
-            lblMinMax.text = lblMinMax.text! + "/\(mdlTMax.value!)" 
         }
     }
-
     
     override func awakeFromNib() {
         super.awakeFromNib()
         vwBackground.layer.cornerRadius = 10
         vwBackground.dropShadow(offset: CGSize.zero, radius: 10, color: UIColor.gray, opacity: 0.5)
-        
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
 
 }

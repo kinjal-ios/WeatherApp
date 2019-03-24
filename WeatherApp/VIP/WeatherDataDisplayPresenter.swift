@@ -16,6 +16,7 @@ import Networking
 protocol WeatherDataDisplayPresentationProtocol {
     func getWeatherReponse(mdlResponse: [ResponseModel])
     func callWeatherApi(urlString: String)
+    func initiateApiCalls()
 }
 
 class WeatherDataDisplayPresenter: WeatherDataDisplayPresentationProtocol {
@@ -29,7 +30,11 @@ class WeatherDataDisplayPresenter: WeatherDataDisplayPresentationProtocol {
     }
     
     func callWeatherApi(urlString: String) {
-        self.interactor?.getWeatherData(urlString : urlString)
+        self.interactor?.getWeatherData(urlString: urlString)
+    }
+    
+    func initiateApiCalls() {
+        self.interactor?.initiateApiCalls()
     }
     
 }

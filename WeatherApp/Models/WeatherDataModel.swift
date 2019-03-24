@@ -16,7 +16,7 @@ struct WeatherDataModel {
     let value: Double?
     let type: Int?
     
-    init(country_id: Int, year: Int, month: Int, value: Double, type : Int) {
+    init(country_id: Int, year: Int, month: Int, value: Double, type: Int) {
         self.country_id = country_id
         self.year = year
         self.month = month
