@@ -14,9 +14,24 @@ class WeatherCell: UITableViewCell {
     @IBOutlet weak var lblMonth: UILabel!
     @IBOutlet weak var lblMinMax: UILabel!
     @IBOutlet weak var lblRainfall: UILabel!
-    var mdlRainFall = RainFallModel()
-    var mdlTMin = TempratureMinModel()
-    var mdlTMax = TempratureMaxModel()
+    var mdlRainFall = RainFallModel(){
+        didSet{
+            lblMonth.text = "\(mdlRainFall.month!)"
+            lblRainfall.text = "\(mdlRainFall.value!)"
+        }
+    }
+    var mdlTMin = TempratureMinModel(){
+        didSet{
+            lblMinMax.text = "\(mdlTMin.value!)"
+        }
+    }
+
+    var mdlTMax = TempratureMaxModel(){
+        didSet{
+            lblMinMax.text = lblMinMax.text! + "/\(mdlTMax.value!)" 
+        }
+    }
+
     
     override func awakeFromNib() {
         super.awakeFromNib()

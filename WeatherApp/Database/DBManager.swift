@@ -186,9 +186,7 @@ class DBManager: NSObject {
                 let result = try database.executeQuery("SELECT * FROM Country where name = '\(name)'", values: nil)
                 
                 while result.next(){
-                    
                     countryId = Int(result.int(forColumn:"id"))
-                    
                 }
                 
                 database.close()
@@ -206,6 +204,7 @@ class DBManager: NSObject {
         }
         
     }
+    
     func getYearsDetail() -> (Bool,[Int]){
         
         var arrYears : [Int] = []
@@ -241,7 +240,7 @@ class DBManager: NSObject {
         }
         
     }
-    
+   
     func getWeatherData(countryId:Int,year:Int) ->(Bool,[RainFallModel],[TempratureMinModel],[TempratureMaxModel]){
         
         var arrWeatherMdl : [WeatherDataModel] = []
@@ -261,13 +260,17 @@ class DBManager: NSObject {
                     
                 }
                 for dict in arrWeatherMdl{
-                    if dict.type! == 1{
+                    if dict.type! == 1 {
                         let mdlRain : RainFallModel = RainFallModel.init(value: dict.value!, year: dict.year!, month: dict.month!)
                         arrRainfallMdl.append(mdlRain)
-                    }else if dict.type! == 2{
-                        let mdlTMin = TempratureMinModel.init(value: dict.value!, year: dict.year!, month: dict.month!)
+                    } else if dict.type! == 2 {
+                        let mdlTMin = TempratureMinModel.init(
+                            value: dict.value!,
+                            year: dict.year!,
+                            month: dict.month!
+                        )
                         arrTMinMdl.append(mdlTMin)
-                    }else{
+                    } else {
                         let mdlTMax = TempratureMaxModel.init(value: dict.value!, year: dict.year!, month: dict.month!)
                         arrTMaxMdl.append(mdlTMax)
                     }

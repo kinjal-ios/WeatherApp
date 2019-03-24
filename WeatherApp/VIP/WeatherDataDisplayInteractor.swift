@@ -12,95 +12,59 @@
 
 import UIKit
 import Networking
+import IHProgressHUD
 
 protocol WeatherDataDisplayInteractorProtocol {
     func getWeatherData(urlString : String)
 }
 
-protocol WeatherDataDisplayDataStore {
-    //var name: String { get set }
-}
-
-class WeatherDataDisplayInteractor: WeatherDataDisplayInteractorProtocol, WeatherDataDisplayDataStore {
+class WeatherDataDisplayInteractor: WeatherDataDisplayInteractorProtocol {
     var presenter: WeatherDataDisplayPresentationProtocol?
-    var arrDict = [ResponseModel]()
-    var arrWeatherCat = [WeatherCategory]()
-    
-    //var name: String = ""
-    
+    private var arrData = [ResponseModel]()
+    private var arrWeatherCat = [WeatherCategory]()
+        
     // MARK: Get weather data
     
-    func getWeatherData(urlString : String) {
+    func getWeatherData(urlString: String) {
     
-        //BaseUrl : "https://s3.eu-west-2.amazonaws.com/interview-question-data/metoffice"
-        let networking = Networking(baseURL: "https://s3.eu-west-2.amazonaws.com/interview-question-data/metoffice")
+        let networking = Networking(baseURL: BASEURL)
         networking.get(urlString) { result in
             switch result {
-            case .success(let response):
-                let json = response.arrayBody
-                print(json)
-                do {
-                    let json = try JSONSerialization.data(withJSONObject: json)
-                    let decoder = JSONDecoder()
-                    decoder.keyDecodingStrategy = .convertFromSnakeCase
-                    let decodedValues = try decoder.decode([ResponseModel].self, from: json)
-                    self.arrDict = decodedValues
-                    let (countryId,type) = self.chkCountryCall(urlstr: urlString)
-                    if DBManager.shared.openDatabase(){
-                        for dict in self.arrDict{
-                            let insertQry = "insert into Weather_data (country_id, value,month,year,type) values (\(countryId),\(dict.value!),\(dict.month!),\(dict.year!),\(type))"
-                            let result = DBManager.shared.executeStatement(query: insertQry)                            
+                case .success(let response):
+                    let json = response.arrayBody
+                    print(json)
+                    do {
+                        let json = try JSONSerialization.data(withJSONObject: json)
+                        let decoder = JSONDecoder()
+                        decoder.keyDecodingStrategy = .convertFromSnakeCase
+                        
+                        let decodedValues = try decoder.decode([ResponseModel].self, from: json)
+                        self.arrData = decodedValues
+                        
+                        if urlString == WeatherCategory.minimumtemp_Wales.rawValue {
+                            IHProgressHUD.dismiss()
+                            UserDefaults.standard.set(true, forKey: "isDataInsered")
                         }
+                        
+                        let (countryId,type) = getCountryDetails(countryInfo: urlString)
+                        if DBManager.shared.openDatabase(){
+                            for dict in self.arrData{
+                                let insertQry = "insert into Weather_data (country_id, value,month,year,type) values (\(countryId),\(dict.value!),\(dict.month!),\(dict.year!),\(type))"
+                                let _ = DBManager.shared.executeStatement(query: insertQry)
+                            }
+                        }
+                        UserDefaults.standard.set(true, forKey: urlString)
+                        
+                    } catch {
+                        print(error)
                     }
-                    UserDefaults.standard.set(true, forKey: urlString)
-                    print(decodedValues)
-                } catch {
-                    print(error)
+                    print(self.arrData)
+                    self.presenter?.getWeatherReponse(mdlResponse: self.arrData)
+
+                case .failure( _):
+                    break
+                    // Handle error
                 }
-                print(self.arrDict)
-                self.presenter?.getWeatherReponse(mdlResponse: self.arrDict)
-
-            case .failure( _):
-                break
-                // Handle error
-            }
         }
-    }
-    func chkCountryCall(urlstr : String) -> (Int,Int) {
-       
-        switch urlstr
-        {
-        case WeatherCategory.rainfall_England.rawValue:
-            return (4,1)
-        case WeatherCategory.minimumtemp_England.rawValue:
-            return (4,2)
-        case WeatherCategory.maximumtemp_England.rawValue:
-            return (4,3)
-            
-        case WeatherCategory.rainfall_Scotland.rawValue:
-            return (2,1)
-        case WeatherCategory.minimumtemp_Scotland.rawValue:
-            return (2,2)
-        case WeatherCategory.maximumtemp_Scotland.rawValue:
-            return (2,3)
-            
-        case WeatherCategory.rainfall_UK.rawValue:
-            return (1,1)
-        case WeatherCategory.minimumtemp_UK.rawValue:
-            return (1,2)
-        case WeatherCategory.maximumtemp_UK.rawValue:
-            return (1,3)
-            
-        case WeatherCategory.rainfall_Wales.rawValue:
-            return (3,1)
-        case WeatherCategory.minimumtemp_Wales.rawValue:
-            return (3,2)
-        case WeatherCategory.maximumtemp_Wales.rawValue:
-            return (3,3)
-
-        default:
-            return (0,0)
-        }
-        
     }
 }

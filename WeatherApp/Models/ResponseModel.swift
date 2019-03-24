@@ -9,10 +9,9 @@
 import Foundation
 
 class ResponseModel : Codable {
-    
+
     let value: Double?
     let year: Int?
     let month: Int?
-    
     
 }

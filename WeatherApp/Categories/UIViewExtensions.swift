@@ -35,20 +35,41 @@ extension UIView {
         self.layer.rasterizationScale = UIScreen.main.scale
     }
     
-    /*public func addShadow(offset: CGSize, radius: CGFloat, color: UIColor, opacity: Float, cornerRadius: CGFloat? = nil) {
-        self.layer.shadowOffset = offset
-        self.layer.shadowRadius = radius
-        self.layer.shadowOpacity = opacity
-        self.layer.shadowColor = color.cgColor
-        if let r = cornerRadius {
-            self.layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: r).cgPath
-        }
-    }*/
-    
-    
     public func addBorder(width: CGFloat, color: UIColor) {
         layer.borderWidth = width
         layer.borderColor = color.cgColor
         layer.masksToBounds = true
     }
+    
+}
+
+extension UIViewController {
+    
+    func showAlert(withTitle title: String, withMessage message:String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        let ok = UIAlertAction(
+            title: "OK",
+            style: .default,
+            handler: {
+                action in
+            }
+        )
+        
+        let cancel = UIAlertAction(
+            title: "Cancel",
+            style: .default,
+            handler: {
+                action in
+            }
+        )
+        
+        alert.addAction(ok)
+        alert.addAction(cancel)
+        
+        DispatchQueue.main.async(execute: {
+            self.present(alert, animated: true)
+        })
+    }
+    
 }

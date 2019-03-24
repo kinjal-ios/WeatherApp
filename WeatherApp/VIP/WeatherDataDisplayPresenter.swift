@@ -14,23 +14,22 @@ import UIKit
 import Networking
 
 protocol WeatherDataDisplayPresentationProtocol {
-    func getWeatherReponse(mdlResponse : [ResponseModel])
-    func callWeatherApi(urlString : String)
+    func getWeatherReponse(mdlResponse: [ResponseModel])
+    func callWeatherApi(urlString: String)
 }
 
 class WeatherDataDisplayPresenter: WeatherDataDisplayPresentationProtocol {
+    
     weak var viewController: WeatherDataDisplayProtocol?
     var interactor: WeatherDataDisplayInteractorProtocol?
     
     // MARK: Get weather response
-    func getWeatherReponse(mdlResponse : [ResponseModel]) {
-        self.viewController?.displayAlert(strTitle: "Hi", strMessage: "Message is here!")
+    func getWeatherReponse(mdlResponse: [ResponseModel]) {
         self.viewController?.displayResponse(mdlResponse: mdlResponse)
     }
     
-    func callWeatherApi(urlString : String) {
+    func callWeatherApi(urlString: String) {
         self.interactor?.getWeatherData(urlString : urlString)
-        
     }
     
 }

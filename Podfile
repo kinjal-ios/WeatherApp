@@ -6,6 +6,6 @@ target 'WeatherApp' do
   use_frameworks!
 
   pod 'Networking', '~> 4'
+  pod 'IHProgressHUD'
 
- 
 end
