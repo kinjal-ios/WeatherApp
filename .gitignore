@@ -1,0 +1,6 @@
+# Ignore Pods
+Pods/
+Podfile.lock
+
+#Ignore workspace
+WeatherApp.xcworkspace/
